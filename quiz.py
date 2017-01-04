@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import argparse
+import dikta
 
 ap = argparse.ArgumentParser(description =
     'Interactive Do I Know It Already quiz')
