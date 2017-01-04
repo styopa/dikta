@@ -6,16 +6,18 @@
 			"questions": [
 				{
 					"question": "What is the unit of current?",
+					"multiple": false,
 					"answers": {
 						"a": "Volt",
 						"b": "Amp",
 						"c": "Ohm",
 						"d": "Farad"
 					},
-					"multiple": false
+					"keys": ["b"]
 				},
 				{
 					"question": "Which of the following are valid metric prefixes?",
+					"multiple": true,
 					"answers": {
 						"a": "tri",
 						"b": "milli",
@@ -23,12 +25,8 @@
 						"d": "poly",
 						"f": "holy"
 					},
-					"multiple": true
+					"keys": ["b", "c"]
 				}
-			],
-			"keys": [
-				["b"],
-				["b", "c"]
 			]
 		},
 		{
@@ -36,28 +34,26 @@
 			"questions": [
 				{
 					"question": "Which of the following are works of Bernard Shaw?",
+					"multiple": true,
 					"answers": {
 						"a": "Caesar and Cleopatra",
 						"b": "Cherry Orchard",
 						"c": "King Lear",
 						"d": "Pygmalion"
 					},
-					"multiple": true
+					"keys": ["a", "d"]
 				},
 				{
 					"question": "Who wrote \"Crime and Punishment\"?",
+					"multiple": false,
 					"answers": {
 						"a": "Leo Tolstoi",
 						"b": "Fyodor Dostoyevsky",
 						"c": "Arthur Conan Doyle",
 						"d": "Paolo Coelho"
 					},
-					"multiple": false
+					"keys": ["b"]
 				}
-			],
-			"keys": [
-				["a", "d"],
-				["b"]
 			]
 		}
 	]
