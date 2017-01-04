@@ -3,6 +3,7 @@ import argparse
 import logging
 
 import dikta
+import console
 
 log_levels = {
     'CRITICAL': logging.CRITICAL,
@@ -16,7 +17,7 @@ ap = argparse.ArgumentParser(description =
     'Interactive "Do I Know It Already" quiz')
 ap.add_argument('json_file', type = argparse.FileType('r'),
     help = 'Quiz in JSON format')
-ap.add_argument('--loglevel', dest = 'log_level', default = 'INFO', type = str,
+ap.add_argument('--loglevel', dest = 'log_level', default = 'WARNING', type = str,
     choices = log_levels.keys(), help = 'Logging verbosity')
 
 args = ap.parse_args()
@@ -26,3 +27,6 @@ logging.basicConfig(level = args.log_level)
 logging.debug('Loading from "%s"' % args.json_file.name)
 quiz = dikta.Quiz(args.json_file)
 logging.info('Loaded quiz "%s"' % quiz)
+
+console = console.Console(quiz)
+console.run_quiz()

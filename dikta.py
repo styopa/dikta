@@ -21,13 +21,13 @@ class Question:
         if len(keys) != 1 and not multiple:
             raise IndexError('Single-choice question requires a single key')
 
-        self._question = question
-        self._answers = answers
-        self._multiple = multiple
+        self.question = question
+        self.answers = answers
+        self.multiple = multiple
         self._keys = keys
 
     def __str__(self):
-        return self._question
+        return self.question
 
 class Chapter:
     def __init__(self, title, questions):
@@ -38,6 +38,10 @@ class Chapter:
 
     def __str__(self):
         return self._title
+
+    def __iter__(self):
+        for question in self._questions:
+            yield question
 
 class Quiz:
     def __init__(self, json_file):
@@ -70,3 +74,7 @@ class Quiz:
 
     def __str__(self):
         return self._title
+
+    def __iter__(self):
+        for chapter in self._chapters:
+            yield chapter
