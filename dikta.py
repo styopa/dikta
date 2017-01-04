@@ -1,14 +1,18 @@
 import json
+import logging
 
 class Question:
     def __init__(self, question, multiple, answers, keys):
         if type(question) is not str or not question:
+            logging.error('question type is %s' % type(question))
             raise ValueError('Question must be a non-empty string')
 
         if type(answers) is not dict or not answers:
+            logging.error('answers type is %s' % type(answers))
             raise ValueError('Answers must be a non-empty dict')
 
         if type(keys) is not list or not keys:
+            logging.error('keys type is %s' % type(keys))
             raise ValueError('Keys must be a non-empty list')
 
         if not set(keys) <= set(answers.keys()):
@@ -29,6 +33,8 @@ class Chapter:
     def __init__(self, title, questions):
         self._title = title
         self._questions = questions
+        logging.debug('Loaded %i questions in chapter "%s"' %
+            (len(questions), title))
 
     def __str__(self):
         return self._title
@@ -56,6 +62,8 @@ class Quiz:
         self._chapters = [];
         for ch in data['quiz']:
             self._chapters.append( Chapter(ch['chapter'], ch['questions']) )
+
+        logging.debug('Loaded %i chapters in quiz "%s"' % (len(self._chapters), self))
 
     def __len__(self):
         return len(self._chapters)

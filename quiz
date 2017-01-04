@@ -24,3 +24,5 @@ args = ap.parse_args()
 logging.basicConfig(level = args.log_level)
 
 logging.debug('Loading from "%s"' % args.json_file.name)
+quiz = dikta.Quiz(args.json_file)
+logging.info('Loaded quiz "%s"' % quiz)
