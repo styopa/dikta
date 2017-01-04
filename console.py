@@ -1,5 +1,3 @@
-import sys
-
 import dikta
 
 class Console:
@@ -37,7 +35,13 @@ class Console:
             for question in chapter:
                 print(question)
 
-                for idx in sorted(question.answers.keys()):
-                    print("  %s. %s" % (idx.upper(), question.answers[idx]))
+                for idx in sorted(question.options.keys()):
+                    print("  %s. %s" % (idx.upper(), question.options[idx]))
+
+                if question.multiple:
+                    prompt = 'Choose multiple options: '
+                else:
+                    prompt = 'Choose one option: '
+                res = input(prompt)
 
                 print()

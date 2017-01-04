@@ -2,27 +2,27 @@ import json
 import logging
 
 class Question:
-    def __init__(self, question, multiple, answers, keys):
+    def __init__(self, question, multiple, options, keys):
         if type(question) is not str or not question:
             logging.error('question type is %s' % type(question))
             raise ValueError('Question must be a non-empty string')
 
-        if type(answers) is not dict or not answers:
-            logging.error('answers type is %s' % type(answers))
+        if type(options) is not dict or not options:
+            logging.error('options type is %s' % type(options))
             raise ValueError('Answers must be a non-empty dict')
 
         if type(keys) is not list or not keys:
             logging.error('keys type is %s' % type(keys))
             raise ValueError('Keys must be a non-empty list')
 
-        if not set(keys) <= set(answers.keys()):
-            raise IndexError('All keys must be among possible answers')
+        if not set(keys) <= set(options.keys()):
+            raise IndexError('All keys must be among possible options')
 
         if len(keys) != 1 and not multiple:
             raise IndexError('Single-choice question requires a single key')
 
         self.question = question
-        self.answers = answers
+        self.options = options
         self.multiple = multiple
         self._keys = keys
 
@@ -55,7 +55,7 @@ class Quiz:
                 return Question(
                         dct['question'],
                         multiple,
-                        dct['answers'],
+                        dct['options'],
                         dct['keys'])
 
             return dct

@@ -7,7 +7,7 @@
 				{
 					"question": "What is the unit of current?",
 					"multiple": false,
-					"answers": {
+					"options": {
 						"a": "Volt",
 						"b": "Amp",
 						"c": "Ohm",
@@ -18,7 +18,7 @@
 				{
 					"question": "Which of the following are valid metric prefixes?",
 					"multiple": true,
-					"answers": {
+					"options": {
 						"a": "tri",
 						"b": "milli",
 						"c": "kilo",
@@ -35,7 +35,7 @@
 				{
 					"question": "Which of the following are works of Bernard Shaw?",
 					"multiple": true,
-					"answers": {
+					"options": {
 						"a": "Caesar and Cleopatra",
 						"b": "Cherry Orchard",
 						"c": "King Lear",
@@ -46,7 +46,7 @@
 				{
 					"question": "Who wrote \"Crime and Punishment\"?",
 					"multiple": false,
-					"answers": {
+					"options": {
 						"a": "Leo Tolstoi",
 						"b": "Fyodor Dostoyevsky",
 						"c": "Arthur Conan Doyle",
