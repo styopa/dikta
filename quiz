@@ -13,7 +13,7 @@ log_levels = {
 }
 
 ap = argparse.ArgumentParser(description =
-    'Interactive Do I Know It Already quiz')
+    'Interactive "Do I Know It Already" quiz')
 ap.add_argument('json_file', type = argparse.FileType('r'),
     help = 'Quiz in JSON format')
 ap.add_argument('--loglevel', dest = 'log_level', default = 'INFO', type = str,
