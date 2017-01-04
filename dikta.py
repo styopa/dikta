@@ -48,6 +48,8 @@ class Quiz:
                         dct['answers'],
                         dct['keys'])
 
+            return dct
+
         data = json.load(json_file, object_hook = object_factory)
 
         self._title = data['title']
