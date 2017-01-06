@@ -2,7 +2,7 @@ import copy
 
 (black, red, green, yellow, blue, magenta, cyan, white) = range(8)
 
-class Text:
+class _Chunk:
     def __init__(self, text, fg, bg, bold):
         self.text = text
         self.fg = fg
@@ -32,35 +32,35 @@ class Text:
 
         return bg + fg + self.text + reset
 
-class ColorText:
+class Text:
     def __init__(self, text = None):
         if text:
-            self._texts = [Text(text, None, None, None)]
+            self._chunks = [_Chunk(text, None, None, None)]
         else:
-            self._texts = []
+            self._chunks = []
 
     def __str__(self):
-        return ''.join( map(str, self._texts) )
+        return ''.join( map(str, self._chunks) )
 
     def fg(self, color):
-        for text in self._texts:
-            text.fg = color
+        for chunk in self._chunks:
+            chunk.fg = color
 
         return self
 
     def bg(self, color):
-        for text in self._texts:
-            text.bg = color
+        for chunk in self._chunks:
+            chunk.bg = color
 
         return self
 
     def bold(self, bold_):
-        for text in self._texts:
+        for text in self._chunks:
             text.bold = bold_
 
         return self
 
     def __add__(self, other):
         result = copy.deepcopy(self)
-        result._texts.extend(other._texts)
+        result._chunks.extend(other._chunks)
         return result
