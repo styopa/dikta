@@ -35,6 +35,8 @@ class _Chunk:
 class Text:
     def __init__(self, text = None):
         if text:
+            if type(text) is not str:
+                text = str(text)
             self._chunks = [_Chunk(text, None, None, None)]
         else:
             self._chunks = []
