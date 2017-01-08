@@ -23,11 +23,33 @@ class Question:
 
         self.question = question
         self.options = options
+        self.__opts = frozenset(options)
         self.multiple = multiple
         self._keys = keys
 
     def __str__(self):
         return self.question
+
+    def answer(self, response):
+        resp_set = frozenset(response)
+        diff_set = resp_set - self.__opts
+        if diff_set:
+            opts = list(self.options)
+            opts.sort()
+            opts_str = ', '.join(opts)
+
+            diff = list(diff_set)
+            diff.sort()
+            diff_str = ', '.join(diff)
+
+            if len(diff) == 1:
+                noun = 'Answer'
+            else:
+                noun = 'Answers'
+
+            raise IndexError('%s %s not among options: %s' % (noun, diff_str, opts_str))
+
+        self.answers = response
 
 class Chapter:
     def __init__(self, title, questions):
