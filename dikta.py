@@ -3,7 +3,7 @@ import logging
 import re
 
 class Question:
-    __junction = re.compile(r'\b(and|or)\b', re.IGNORECASE)
+    __junction = re.compile(r'\b(and|or|maybe)\b', re.IGNORECASE)
 
     def __init__(self, question, multiple, options, keys):
         if type(question) is not str or not question:
@@ -39,7 +39,11 @@ class Question:
         selections = resp_set & self.__opts
         logging.debug('Answered: %s' % ', '.join(list(selections)))
         if selections:
-            self.answers = selections
+            n = len(selections)
+            if n > 1 and not self.multiple:
+                raise IndexError('Only one answer expected, %i given' % n)
+            else:
+                self.answers = selections
         else:
             raise IndexError( 'Nothing in "%s" matches options %s' %
                 (text, ', '.join(self.options)) )
