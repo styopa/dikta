@@ -35,15 +35,14 @@ class Question:
 
     def answer(self, text):
         no_junc = __class__.__junction.sub('', text)
-        resp_set = frozenset(no_junc)
-        selections = resp_set & self.__opts
-        logging.debug('Answered: %s' % ', '.join(list(selections)))
-        if selections:
-            n = len(selections)
+        filtered_response = frozenset(no_junc) & self.__opts
+        logging.debug('Answered: %s' % ', '.join(list(filtered_response)))
+        if filtered_response:
+            n = len(filtered_response)
             if n > 1 and not self.multiple:
                 raise IndexError('Only one answer expected, %i given' % n)
             else:
-                self.answers = selections
+                self.answers = filtered_response
         else:
             raise IndexError( 'Nothing in "%s" matches options %s' %
                 (text, ', '.join(self.options)) )
