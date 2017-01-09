@@ -1,7 +1,10 @@
 import json
 import logging
+import re
 
 class Question:
+    __junction = re.compile(r'\b(and|or)\b', re.IGNORECASE)
+
     def __init__(self, question, multiple, options, keys):
         if type(question) is not str or not question:
             logging.error('question type is %s' % type(question))
@@ -30,26 +33,16 @@ class Question:
     def __str__(self):
         return self.question
 
-    def answer(self, response):
-        resp_set = frozenset(response)
-        diff_set = resp_set - self.__opts
-        if diff_set:
-            opts = list(self.options)
-            opts.sort()
-            opts_str = ', '.join(opts)
-
-            diff = list(diff_set)
-            diff.sort()
-            diff_str = ', '.join(diff)
-
-            if len(diff) == 1:
-                noun = 'Answer'
-            else:
-                noun = 'Answers'
-
-            raise IndexError('%s %s not among options: %s' % (noun, diff_str, opts_str))
-
-        self.answers = response
+    def answer(self, text):
+        no_junc = __class__.__junction.sub('', text)
+        resp_set = frozenset(no_junc)
+        selections = resp_set & self.__opts
+        logging.debug('Answered: %s' % ', '.join(list(selections)))
+        if selections:
+            self.answers = selections
+        else:
+            raise IndexError( 'Nothing in "%s" matches options %s' %
+                (text, ', '.join(self.options)) )
 
 class Chapter:
     def __init__(self, title, questions):
@@ -71,7 +64,7 @@ class Quiz:
             if 'question' in dct:
                 try:
                     multiple = dct['multiple']
-                except(IndexError):
+                except IndexError:
                     multiple = False
 
                 return Question(

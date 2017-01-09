@@ -6,23 +6,24 @@ class Console:
         self._quiz = quiz
 
     def run_quiz(self):
-        def print_question(question):
+        def answer(question):
             print(question)
 
             for idx in sorted(question.options.keys()):
                 print("  %s. %s" % (idx.upper(), question.options[idx]))
 
-        def filter_answer(question):
             if question.multiple:
                 opt = 'multiple'
             else:
                 opt = 'one'
+
             while True:
                 try:
                     response = input("Choose %s: " % opt)
                     question.answer(response)
                     break
-                except(dikta.
+                except IndexError as err:
+                    print( color.Text(err).fg(color.red).bold(True) )
 
         print( color.Text(self._quiz).bg(color.magenta).fg(color.white).bold(True) )
 
@@ -30,8 +31,7 @@ class Console:
             print( color.Text(chapter).fg(color.blue).bold(True) )
 
             for question in chapter:
-                print_question(question)
-
+                answer(question)
                 print()
 
     def show_results(self):
