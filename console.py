@@ -85,3 +85,17 @@ class Console:
 
                     print_mistakes(question)
                     print()
+
+    def show_score(self):
+        quiz_score = 0
+        quiz_total = 0
+
+        header1('Your score')
+        for chapter in self._quiz:
+            score = chapter.score()
+            total = len(chapter)
+            quiz_score = quiz_score + score
+            quiz_total = quiz_total + total
+            print('%s: %i/%i' % (str(chapter), score, total))
+
+        header2( 'Overall score %i/%i' % (quiz_score, quiz_total) )

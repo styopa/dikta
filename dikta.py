@@ -65,6 +65,17 @@ class Chapter:
         for question in self._questions:
             yield question
 
+    def __len__(self):
+        return len(self._questions)
+
+    def score(self):
+        n = 0
+        for question in self._questions:
+            if question.correct:
+                n = n + 1
+
+        return n
+
 class Quiz:
     def __init__(self, json_file):
         def object_factory(dct):
