@@ -3,10 +3,13 @@ import color
 import logging
 
 def header1(text):
+    text = '   %s   ' % text
     print( color.Text(text).bg(color.magenta).fg(color.white).bold(True) )
+    print()
 
 def header2(text):
     print( color.Text(text).fg(color.blue).bold(True) )
+    print()
 
 class Console:
     def __init__(self, quiz):
