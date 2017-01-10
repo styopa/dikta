@@ -25,16 +25,18 @@ class Question:
             raise IndexError('Single-choice question requires a single key')
 
         self.question = question
-        self.options = options
-        self.__opts = frozenset(options)
         self.multiple = multiple
-        self._keys = keys
+        self.keys = list( map(lambda k: k.upper(), keys) )
+        self.options = {}
+        for opt in options:
+            self.options[str(opt).upper()] = options[opt]
+        self.__opts = frozenset(self.options)
 
     def __str__(self):
         return self.question
 
     def answer(self, text):
-        no_junc = __class__.__junction.sub('', text)
+        no_junc = __class__.__junction.sub('', text).upper()
         filtered_response = frozenset(no_junc) & self.__opts
         logging.debug('Answered: %s' % ', '.join(list(filtered_response)))
         if filtered_response:
