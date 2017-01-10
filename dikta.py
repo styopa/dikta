@@ -27,24 +27,26 @@ class Question:
         self.question = question
         self.multiple = multiple
         self.keys = list( map(lambda k: k.upper(), keys) )
+        self.correct = False # assume the worst
         self.options = {}
         for opt in options:
             self.options[str(opt).upper()] = options[opt]
-        self.__opts = frozenset(self.options)
 
     def __str__(self):
         return self.question
 
     def answer(self, text):
         no_junc = __class__.__junction.sub('', text).upper()
-        filtered_response = frozenset(no_junc) & self.__opts
+        filtered_response = frozenset(no_junc) & frozenset(self.options)
         logging.debug('Answered: %s' % ', '.join(list(filtered_response)))
         if filtered_response:
             n = len(filtered_response)
             if n > 1 and not self.multiple:
                 raise IndexError('Only one answer expected, %i given' % n)
             else:
-                self.answers = filtered_response
+                self.answers = list(filtered_response)
+                diff = filtered_response ^ frozenset(self.keys)
+                self.correct = not bool(diff)
         else:
             raise IndexError( 'Nothing in "%s" matches options %s' %
                 (text, ', '.join(self.options)) )

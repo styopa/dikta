@@ -30,4 +30,4 @@ logging.info('Loaded quiz "%s"' % quiz)
 
 console = console.Console(quiz)
 console.run_quiz()
-console.show_results()
+console.show_mistakes()
