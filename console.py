@@ -98,7 +98,8 @@ class Console:
             quiz_total = quiz_total + total
             print('%s: %i/%i' % (str(chapter), score, total))
 
-        header2( 'Overall score %i/%i' % (quiz_score, quiz_total) )
+        if len(self._quiz) > 1:
+            header2( 'Overall score %i/%i' % (quiz_score, quiz_total) )
 
     def list_chapters(self):
         n = 1
