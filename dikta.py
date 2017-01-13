@@ -96,9 +96,20 @@ class Quiz:
         data = json.load(json_file, object_hook = object_factory)
 
         self._title = data['title']
+
+        n = 1
         self._chapters = [];
+        if number:
+            logging.debug('Seeking chapter %i' % number)
+        if title:
+            logging.debug('Seeking chapter "%s"' % title)
         for ch in data['quiz']:
-            self._chapters.append( Chapter(ch['chapter'], ch['questions']) )
+            sought_chapter = (number and number == n) or (title and title == ch['chapter'])
+            if sought_chapter or not (number or title):
+                self._chapters.append( Chapter(ch['chapter'], ch['questions']) )
+            else:
+                logging.debug('Ignoring chapter %i "%s"' % (n, ch['chapter']))
+            n = n + 1
 
         logging.debug('Loaded %i chapters in quiz "%s"' % (len(self._chapters), self))
 
