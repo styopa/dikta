@@ -16,9 +16,17 @@ log_levels = {
 ap = argparse.ArgumentParser(description =
     'Interactive "Do I Know It Already" quiz')
 ap.add_argument('json_file', type = argparse.FileType('r'),
-    help = 'Quiz in JSON format')
+    help = 'Quiz in JSON format', metavar = 'quiz.json')
 ap.add_argument('--loglevel', dest = 'log_level', default = 'WARNING', type = str,
     choices = log_levels.keys(), help = 'Logging verbosity')
+
+group = ap.add_mutually_exclusive_group()
+group.add_argument('--list', '-l', dest = 'list_chapters', action = 'store_true',
+    help = 'List chapters in quiz and exit')
+group.add_argument('--number', '-n', dest = 'number', type = int, metavar = 'N',
+    help = 'Only run the chapter with this number')
+group.add_argument('--title', '-t', dest = 'title', type = str,
+    help = 'Only run the chapter with this title')
 
 args = ap.parse_args()
 
