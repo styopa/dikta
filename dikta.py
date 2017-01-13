@@ -77,7 +77,7 @@ class Chapter:
         return n
 
 class Quiz:
-    def __init__(self, json_file):
+    def __init__(self, json_file, number = None, title = None):
         def object_factory(dct):
             if 'question' in dct:
                 try:

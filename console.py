@@ -99,3 +99,9 @@ class Console:
             print('%s: %i/%i' % (str(chapter), score, total))
 
         header2( 'Overall score %i/%i' % (quiz_score, quiz_total) )
+
+    def list_chapters(self):
+        n = 1
+        for chapter in self._quiz:
+            print('%i. %s' % (n, chapter))
+            n = n + 1

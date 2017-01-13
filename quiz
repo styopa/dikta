@@ -33,10 +33,13 @@ args = ap.parse_args()
 logging.basicConfig(level = args.log_level)
 
 logging.debug('Loading from "%s"' % args.json_file.name)
-quiz = dikta.Quiz(args.json_file)
+quiz = dikta.Quiz(args.json_file, number = args.number, title = args.title)
 logging.info('Loaded quiz "%s"' % quiz)
 
 console = console.Console(quiz)
-console.run_quiz()
-console.show_mistakes()
-console.show_score()
+if args.list_chapters:
+    console.list_chapters()
+else:
+    console.run_quiz()
+    console.show_mistakes()
+    console.show_score()
