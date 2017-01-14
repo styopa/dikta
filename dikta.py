@@ -49,7 +49,7 @@ class Question:
                 self.correct = not bool(diff)
         else:
             raise IndexError( 'Nothing in "%s" matches options %s' %
-                (text, ', '.join(self.options)) )
+                (text, ', '.join(sorted(self.options.keys()))) )
 
 class Chapter:
     def __init__(self, title, questions):
