@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import argparse
 import logging
+import sys
 
 import dikta
 import console
@@ -40,6 +41,11 @@ console = console.Console(quiz)
 if args.list_chapters:
     console.list_chapters()
 else:
-    console.run_quiz()
+    try:
+        console.run_quiz()
+    except KeyboardInterrupt:
+        print()
+        sys.exit()
+
     console.show_mistakes()
     console.show_score()
